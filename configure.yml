@@ -1,0 +1,83 @@
+# ---
+# ## CONFIGURE CRYPTOGRAPHY ON VPN ROUTERS ##
+# - name: CONFIGURING VPN IPSEC SETTINGS ON VPN ROUTERS
+#   hosts: vpn_routers
+#   gather_facts: no
+
+#   vars_prompt:
+#     - name: isakmp_policy
+#       prompt: "Enter ISAKMP policy number"
+#       private: no
+
+#     - name: pre_shared_key
+#       prompt: "Enter pre-shared key"
+#       private: no
+
+#     - name: transform_set_name
+#       prompt: "Enter transform-set name"
+#       private: no
+
+#     - name: profile_name
+#       prompt: "Enter crypto profile name"
+#       private: no
+#   roles: 
+#     - vpn_cfg
+
+## CONFIGURE OSPF ON SERVER FIREWALLS ##
+- name: CONFIGURING OSPF 
+  hosts: svr_firewalls
+  gather_facts: no
+  vars_prompt:
+        - name: p2p_intf
+          prompt: "enter point-to-point interface"
+          private: no
+        - name: lan_intf
+          prompt: "enter lan_intf"
+          private: no
+  tasks:     
+    - name: "configuring OSPF commands"
+      cisco.ios.ios_config:
+        lines: 
+          - auto-cost reference-bandwidth 100000
+          - passive-interface e0/0.18
+          - address-family ipv4
+          - address-family ipv6
+        parents: router ospfv3 1
+    
+    - name: "configuring OSPF on interfaces"
+      cisco.ios.ios_config:
+        lines:
+          - interface {{p2p_intf}}
+          - ospfv3 network point-to-point
+          - ipv6 enable
+          - ospfv3 1 ipv4 area 0
+          - ospfv3 1 ipv6 area 0
+
+          - interface {{lan_intf}}
+          - ospfv3 1 ipv4 area 18
+          - ospfv3 1 ipv6 area 18
+
+
+- name: CONFIGURING VLANS
+  hosts: core_sw_1
+  gather_facts: no
+  vars:
+    vlan_config:
+      - id: 10
+        name: STUDIO_BROADCAST
+      - id: 11
+        name: EDITORIAL
+      - id: 12
+        name: HR_ADMIN_ACC
+      - id: 13
+        name: EXECUTIVE
+      - id: 14
+        name: INTERNET_USERS
+      - id: 15
+        name: IoT
+      - id: 16
+        name: MGT_IT_INFRA
+  roles:
+    - vlans_cfg
+
+
