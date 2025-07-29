@@ -1,6 +1,6 @@
 
 - name: DEVICE INFORMATION
-  hosts: svr_firewalls, svr_switches
+  hosts: vpn_routers
   gather_facts: no
   tasks:
     - name: "Gathering Device information..."

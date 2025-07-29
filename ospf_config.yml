@@ -1,0 +1,34 @@
+## CONFIGURE OSPF ON SERVER FIREWALLS ##
+- name: CONFIGURING OSPF 
+  hosts: svr_firewalls
+  gather_facts: no
+  vars_prompt:
+        - name: p2p_intf
+          prompt: "enter point-to-point interface"
+          private: no
+        - name: lan_intf
+          prompt: "enter lan_intf"
+          private: no
+  tasks:     
+    - name: "configuring OSPF commands"
+      cisco.ios.ios_config:
+        lines: 
+          - auto-cost reference-bandwidth 100000
+          - passive-interface e0/0.18
+          - address-family ipv4
+          - address-family ipv6
+        parents: router ospfv3 1
+    
+    - name: "configuring OSPF on interfaces"
+      cisco.ios.ios_config:
+        lines:
+          - interface {{p2p_intf}}
+          - ospfv3 network point-to-point
+          - ipv6 enable
+          - ospfv3 1 ipv4 area 0
+          - ospfv3 1 ipv6 area 0
+
+          - interface {{lan_intf}}
+          - ospfv3 1 ipv4 area 18
+          - ospfv3 1 ipv6 area 18
+
