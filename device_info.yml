@@ -1,6 +1,6 @@
 
 - name: DEVICE INFORMATION
-  hosts: vpn_routers
+  hosts: all
   gather_facts: no
   tasks:
     - name: "Gathering Device information..."

@@ -1,5 +1,0 @@
-
----
-- name: save running config
-  cisco.ios.ios_config:
-    save_when: always

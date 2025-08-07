@@ -1,6 +1,6 @@
 ---
 - name: OSPF PROTOCOL INFORMATION
-  hosts: svr_firewalls
+  hosts: edge_routers, stream_routers, firewalls
   gather_facts: no
   tasks:
    - name: "gathering OSPFv3 information..."
