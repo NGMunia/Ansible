@@ -42,4 +42,3 @@ all:
               ansible_host: 2001:32:19:86::253
             edge_fw_2:
               ansible_host: 2001:32:19:86::254
-          
