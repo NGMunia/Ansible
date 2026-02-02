@@ -2,7 +2,7 @@
 
 # Ansible for Network Automation
 
-## 📖 Overview
+## Overview
 Ansible is an open-source automation tool that helps you manage and configure Network devices.  
 In the world of **network automation**, Ansible makes it easy to automate repetitive tasks such as device configuration, across routers, switches, firewalls, and more.
 
@@ -19,7 +19,7 @@ Instead of logging into each device manually, you can use Ansible playbooks to p
 
 ---
 
-## 🛠 Key Concepts
+## Key Concepts
 - **Inventory**: A list of devices (hosts) you want to manage.  
 - **Modules**: Pre-built commands for specific tasks (e.g., configuring interfaces).  
 - **Playbooks**: YAML files that describe automation tasks step by step.  
@@ -90,9 +90,9 @@ all:
               ansible_host: 192.168.0.2
             rtr_br_2:
               ansible_host: 192.168.0.3
-  
-    ```
-Run your playbook:
+```
+**Run your playbook:**
+
 ```bash
 ansible-playbook playbook/ospf_verify.yml 
 ```
