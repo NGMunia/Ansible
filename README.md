@@ -28,8 +28,6 @@ Instead of logging into each device manually, you can use Ansible playbooks to p
 
 ---
 
----
-
 ## Example Playbook
 Here’s a simple playbook to verify OSPF in cisco router:
 
