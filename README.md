@@ -1,4 +1,3 @@
-# Ansible
 
 # Ansible for Network Automation
 
